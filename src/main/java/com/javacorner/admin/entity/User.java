@@ -11,16 +11,22 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "user_id",nullable = false)
     private Long userId;
     @Basic
-    @Column(name = "user_email")
+    @Column(name = "email",nullable = false,length = 45,unique = true)
     private String email;
     @Basic
-    @Column(name = "user_password")
+    @Column(name = "password",nullable = false,length = 64)
     private String password;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+    joinColumns = {@JoinColumn(name = "user_id")},
+    inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles = new HashSet<>();
+
+    @OneToOne(mappedBy = "user")
     private Student student;
 
     @OneToOne(mappedBy = "user")
@@ -110,7 +116,6 @@ public class User {
         return "User{" +
                 "userId=" + userId +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 }

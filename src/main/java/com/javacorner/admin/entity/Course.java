@@ -33,7 +33,6 @@ public class Course {
     @JoinTable(name = "enrolled_in",
     joinColumns= {@JoinColumn(name = "course_id")},
     inverseJoinColumns = {@JoinColumn(name = "student_id")})
-
     private Set<Student> students = new HashSet<>();
 
 
