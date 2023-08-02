@@ -78,7 +78,7 @@ public class StudentServiceImpl implements StudentService {
     public void removeStudent(Long studentId) {
         Student loadStudent = loadStudentById(studentId);
         Iterator<Course> courseIterator = loadStudent.getCourses().iterator();
-        if(courseIterator.hasNext()){
+        if (courseIterator.hasNext()){
             Course course = courseIterator.next();
             course.removeStudentFromCourse(loadStudent);
         }
