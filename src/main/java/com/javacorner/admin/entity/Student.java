@@ -23,7 +23,7 @@ public class Student {
     @Column(name = "level",nullable = false,length = 64)
     private String level;
 
-    @ManyToMany(mappedBy = "students",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "students",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private Set<Course> courses = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.REMOVE)
@@ -36,6 +36,11 @@ public class Student {
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
         return studentId.equals(student.studentId) && Objects.equals(firstName, student.firstName) && Objects.equals(lastName, student.lastName) && Objects.equals(level, student.level);
+    }
+
+    public void removeCourseFromStudent(Course course){
+        this.courses.remove(course);
+        course.getStudents().remove(this);
     }
 
     @Override

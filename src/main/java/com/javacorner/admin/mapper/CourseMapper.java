@@ -24,6 +24,7 @@ public class CourseMapper {
     public Course fromCourseDTO(CourseDTO courseDTO){
         Course course = new Course();
         BeanUtils.copyProperties(courseDTO,course);
+        course.setInstructor(instructorMapper.fromInstructorDTO(courseDTO.getInstructor()));
         return course;
     }
 }
