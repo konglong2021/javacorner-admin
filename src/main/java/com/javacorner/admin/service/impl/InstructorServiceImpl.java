@@ -12,6 +12,7 @@ import com.javacorner.admin.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -40,7 +41,7 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public Page<InstructorDTO> findInstructorByName(String name, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page,size);
+        PageRequest pageRequest = PageRequest.of(page,size).withSort(Sort.Direction.ASC,"firstName");
         Page<Instructor> instructorsPage =  instructorDao.findInstructorsByName(name,pageRequest);
         return new PageImpl<>(instructorsPage.getContent().stream().map(instructor -> instructorMapper.fromInstructor(instructor)).collect(Collectors.toList()),pageRequest,instructorsPage.getTotalElements());
     }

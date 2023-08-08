@@ -12,6 +12,7 @@ import com.javacorner.admin.service.CourseService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -95,7 +96,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Page<CourseDTO> fetchCourseForInstructor(Long instructorId, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page,size);
+        PageRequest pageRequest = PageRequest.of(page,size).withSort(Sort.Direction.ASC,"courseName");
         Page<Course> coursesByInstructorPage = courseDao.getCoursesByInstructorId(instructorId,pageRequest);
         return new PageImpl<>(coursesByInstructorPage.getContent().stream().map(course -> courseMapper.fromCourse(course)).collect(Collectors.toList()),pageRequest,coursesByInstructorPage.getTotalElements());
     }
