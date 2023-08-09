@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 @Component
-public class MyRunner{
+public class MyRunner {
 
     @Autowired
     private RoleService roleService;
@@ -28,14 +28,14 @@ public class MyRunner{
     private StudentService studentService;
 
 //    @Override
-//    public void run(String... args) throws Exception {
-//        createRoles();
-//        createAdmin();
-//        createInstructors();
-//        createCourses();
-//        StudentDTO student = createStudent();
-//        assignCourseToStudent(student);
-//    }
+    public void run(String... args) throws Exception {
+        createRoles();
+        createAdmin();
+        createInstructors();
+        createCourses();
+        StudentDTO student = createStudent();
+        assignCourseToStudent(student);
+    }
 
 
     private void createRoles() {
